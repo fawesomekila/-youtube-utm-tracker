@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<!-- saved from url=(0097)https://page.genspark.site/page/toolu_01VKBd3Xm2GZqjjLUtRutGzE/YouTube_UTM_Tracker_Optimized.html -->
+<html lang="zh-CN"><plasmo-csui><template shadowrootmode="open"><div id="plasmo-shadow-container" style="z-index: 2147483647; position: relative;"><div id="plasmo-overlay-0" class="plasmo-csui-container" style="display: flex; position: absolute; top: 0px; left: 0px;"></div></div></template></plasmo-csui><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube视频UTM追踪系统</title>
+    <link rel="stylesheet" href="./YouTube视频UTM追踪系统 2.0_files/tailwind.min.css">
+    <script src="./YouTube视频UTM追踪系统 2.0_files/chart.min.js"></script>
+    <link rel="stylesheet" href="./YouTube视频UTM追踪系统 2.0_files/all.min.css">
+    <style>
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .status-unlisted {
+            background-color: #FEF3C7;
+        }
+        .status-public {
+            background-color: #D1FAE5;
+        }
+        .status-archived {
+            background-color: #E5E7EB;
+        }
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 3px solid #3498db;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+<style id="_goober"> @keyframes go2264125279{from{transform:scale(0) rotate(45deg);opacity:0;}to{transform:scale(1) rotate(45deg);opacity:1;}}@keyframes go3020080000{from{transform:scale(0);opacity:0;}to{transform:scale(1);opacity:1;}}@keyframes go463499852{from{transform:scale(0) rotate(90deg);opacity:0;}to{transform:scale(1) rotate(90deg);opacity:1;}}@keyframes go1268368563{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}@keyframes go1310225428{from{transform:scale(0) rotate(45deg);opacity:0;}to{transform:scale(1) rotate(45deg);opacity:1;}}@keyframes go651618207{0%{height:0;width:0;opacity:0;}40%{height:0;width:6px;opacity:1;}100%{opacity:1;height:10px;}}@keyframes go901347462{from{transform:scale(0.6);opacity:0.4;}to{transform:scale(1);opacity:1;}}.go4109123758{z-index:9999;}.go4109123758 > *{pointer-events:auto;}</style></head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- 顶部导航栏 -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+            <div class="flex items-center mb-4 md:mb-0">
+                <i class="fas fa-link text-indigo-600 text-3xl mr-2"></i>
+                <h1 class="text-2xl font-bold text-indigo-700">YouTube视频UTM追踪系统</h1>
+            </div>
+            <div class="flex space-x-2">
+                <button id="exportBtn" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition">
+                    <i class="fas fa-download mr-1"></i> 导出数据
+                </button>
+                <button id="importBtn" class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition">
+                    <i class="fas fa-upload mr-1"></i> 导入数据
+                </button>
+                <input type="file" id="importFile" accept=".json" class="hidden">
+            </div>
+        </div>
+
+        <!-- 标签导航 -->
+        <div class="mb-6 border-b border-gray-200">
+            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
+                <li class="mr-2">
+                    <a href="https://page.genspark.site/page/toolu_01VKBd3Xm2GZqjjLUtRutGzE/YouTube_UTM_Tracker_Optimized.html#" class="tab-link inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-indigo-600 hover:border-indigo-300" data-tab="guide">
+                        <i class="fas fa-book mr-1"></i> 使用指南
+                    </a>
+                </li>
+                <li class="mr-2">
+                    <a href="https://page.genspark.site/page/toolu_01VKBd3Xm2GZqjjLUtRutGzE/YouTube_UTM_Tracker_Optimized.html#" class="tab-link inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-indigo-600 hover:border-indigo-300 active text-indigo-600 border-indigo-600" data-tab="tracking">
+                        <i class="fas fa-link mr-1"></i> 视频追踪
+                    </a>
+                </li>
+                <li class="mr-2">
+                    <a href="https://page.genspark.site/page/toolu_01VKBd3Xm2GZqjjLUtRutGzE/YouTube_UTM_Tracker_Optimized.html#" class="tab-link inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-indigo-600 hover:border-indigo-300" data-tab="analysis">
+                        <i class="fas fa-chart-bar mr-1"></i> 数据分析
+                    </a>
+                </li>
+                <li class="mr-2">
+                    <a href="https://page.genspark.site/page/toolu_01VKBd3Xm2GZqjjLUtRutGzE/YouTube_UTM_Tracker_Optimized.html#" class="tab-link inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-indigo-600 hover:border-indigo-300" data-tab="reference">
+                        <i class="fas fa-book-open mr-1"></i> 命名参考
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 使用指南 Tab -->
+        <div id="guide-tab" class="tab-content">
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-xl font-bold text-indigo-700 mb-4">YouTube视频UTM追踪系统使用指南</h2>
+                
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">系统概述</h3>
+                    <p class="mb-2">本系统帮助您管理YouTube视频的UTM追踪链接，并分析每个视频带来的流量和转化。系统特别支持从未发布(unlisted)到已发布(public)的视频状态变化管理。</p>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">主要功能</h3>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>支持在视频正式发布前上传YouTube unlisted链接进行测试</li>
+                        <li>自动生成测试用UTM链接</li>
+                        <li>当视频正式发布后，支持更新为public链接并切换状态</li>
+                        <li>自动更新UTM链接以反映最新状态</li>
+                        <li>提供实时数据分析和可视化界面</li>
+                        <li>支持数据输入和自动计算关键指标</li>
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">使用流程</h3>
+                    
+                    <div class="border-l-4 border-indigo-500 pl-4 mb-4">
+                        <h4 class="font-semibold">1. 未发布视频测试阶段</h4>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>点击"视频追踪"标签</li>
+                            <li>点击"添加新视频"按钮</li>
+                            <li>填写视频基本信息，选择状态为"未发布(Unlisted)"</li>
+                            <li>粘贴YouTube unlisted链接</li>
+                            <li>设置目标网站URL和UTM参数</li>
+                            <li>系统会自动生成测试用UTM链接</li>
+                            <li>保存记录</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="border-l-4 border-green-500 pl-4 mb-4">
+                        <h4 class="font-semibold">2. 视频正式发布阶段</h4>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>视频正式发布后，在视频列表中找到相应记录</li>
+                            <li>点击"编辑"按钮</li>
+                            <li>更新YouTube链接为public链接</li>
+                            <li>将状态更改为"已发布(Public)"</li>
+                            <li>系统会自动更新UTM链接</li>
+                            <li>保存更改</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h4 class="font-semibold">3. 数据分析阶段</h4>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>点击"数据分析"标签</li>
+                            <li>找到相应视频记录</li>
+                            <li>输入最新的观看量、网站访问量和转化数据</li>
+                            <li>系统会自动计算点击率、转化率和ROI等指标</li>
+                            <li>查看自动生成的数据图表</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">数据管理</h3>
+                    <p>本系统使用浏览器本地存储(LocalStorage)保存数据。为防止数据丢失，请定期使用"导出数据"功能备份您的数据。如需恢复数据，可使用"导入数据"功能。</p>
+                </div>
+
+                <div class="bg-indigo-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-2">开始使用</h3>
+                    <p>点击上方的"视频追踪"标签，开始添加您的第一个视频！</p>
+                    <button id="startTrackingBtn" class="mt-3 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition">
+                        <i class="fas fa-play mr-1"></i> 开始追踪
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 视频追踪 Tab -->
+        <div id="tracking-tab" class="tab-content active">
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold text-indigo-700">视频追踪管理</h2>
+                    <button id="addVideoBtn" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition">
+                        <i class="fas fa-plus mr-1"></i> 添加新视频
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">视频信息</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">YouTube链接</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">UTM链接</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="videoTable" class="bg-white divide-y divide-gray-200">
+                    <tr>
+                        <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                            暂无视频记录。点击"添加新视频"开始追踪。
+                        </td>
+                    </tr>
+                </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 数据分析 Tab -->
+        <div id="analysis-tab" class="tab-content">
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-xl font-bold text-indigo-700 mb-6">视频性能数据分析</h2>
+                
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">数据输入</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">视频信息</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">观看量</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">网站访问量</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">转化数量</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">点击率(CTR)</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">转化率</th>
+                                </tr>
+                            </thead>
+                            <tbody id="analysisTable" class="bg-white divide-y divide-gray-200">
+                    <tr>
+                        <td colspan="7" class="px-6 py-4 text-center text-gray-500">
+                            暂无数据记录。请先在"视频追踪"选项卡中添加视频。
+                        </td>
+                    </tr>
+                </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">点击率(CTR)比较</h3>
+                        <div class="h-64">
+                            <canvas id="ctrChart" height="256" style="display: block; box-sizing: border-box; height: 256px; width: 684px;" width="684"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">转化率比较</h3>
+                        <div class="h-64">
+                            <canvas id="conversionChart" height="256" style="display: block; box-sizing: border-box; height: 256px; width: 684px;" width="684"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">视频性能总览</h3>
+                    <div class="h-80">
+                        <canvas id="performanceChart" height="320" style="display: block; box-sizing: border-box; height: 320px; width: 1424px;" width="1424"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 命名参考 Tab -->
+        <div id="reference-tab" class="tab-content">
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-xl font-bold text-indigo-700 mb-6">UTM参数命名参考</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">utm_source 标准选项</h3>
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">来源</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">标准命名</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td class="px-4 py-2">YouTube</td><td class="px-4 py-2">youtube</td></tr>
+                                <tr><td class="px-4 py-2">Facebook</td><td class="px-4 py-2">facebook</td></tr>
+                                <tr><td class="px-4 py-2">Instagram</td><td class="px-4 py-2">instagram</td></tr>
+                                <tr><td class="px-4 py-2">Twitter</td><td class="px-4 py-2">twitter</td></tr>
+                                <tr><td class="px-4 py-2">TikTok</td><td class="px-4 py-2">tiktok</td></tr>
+                                <tr><td class="px-4 py-2">电子邮件</td><td class="px-4 py-2">email</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">utm_medium 标准选项</h3>
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">媒介类型</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">标准命名</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td class="px-4 py-2">常规视频</td><td class="px-4 py-2">video</td></tr>
+                                <tr><td class="px-4 py-2">短视频</td><td class="px-4 py-2">shorts</td></tr>
+                                <tr><td class="px-4 py-2">直播</td><td class="px-4 py-2">live</td></tr>
+                                <tr><td class="px-4 py-2">首映</td><td class="px-4 py-2">premiere</td></tr>
+                                <tr><td class="px-4 py-2">社交媒体</td><td class="px-4 py-2">social</td></tr>
+                                <tr><td class="px-4 py-2">付费广告</td><td class="px-4 py-2">cpc</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">utm_campaign 命名结构</h3>
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">活动类型</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">命名模式</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">示例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="px-4 py-2">产品功能</td>
+                                    <td class="px-4 py-2">feature_[功能名称]</td>
+                                    <td class="px-4 py-2">feature_instructed</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2">教程</td>
+                                    <td class="px-4 py-2">tutorial_[主题]</td>
+                                    <td class="px-4 py-2">tutorial_editing</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2">案例研究</td>
+                                    <td class="px-4 py-2">case_study_[行业]</td>
+                                    <td class="px-4 py-2">case_study_ecommerce</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2">活动</td>
+                                    <td class="px-4 py-2">event_[活动名称]_[年份]</td>
+                                    <td class="px-4 py-2">event_launch_2025</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2">季节营销</td>
+                                    <td class="px-4 py-2">seasonal_[季节]_[年份]</td>
+                                    <td class="px-4 py-2">seasonal_spring_2025</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">utm_content 标准选项</h3>
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">位置</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">标准命名</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td class="px-4 py-2">视频描述</td><td class="px-4 py-2">description_link</td></tr>
+                                <tr><td class="px-4 py-2">置顶评论</td><td class="px-4 py-2">pinned_comment</td></tr>
+                                <tr><td class="px-4 py-2">视频卡片</td><td class="px-4 py-2">video_card</td></tr>
+                                <tr><td class="px-4 py-2">结束画面</td><td class="px-4 py-2">end_screen</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="mt-8 bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                    <h3 class="text-lg font-semibold text-yellow-800 mb-2">视频ID与UTM链接更新说明</h3>
+                    <p class="text-yellow-700">当视频从unlisted状态更新为public状态时，本系统会自动检测并更新相关UTM链接中的视频ID参数。您只需在视频发布后更新状态和YouTube链接，系统将自动处理其余操作。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 添加/编辑视频模态框 -->
+        <div id="videoModal" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center hidden z-50">
+            <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-screen overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 id="modalTitle" class="text-xl font-bold text-indigo-700">添加新视频</h3>
+                        <button id="closeModalBtn" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <form id="videoForm" class="space-y-4">
+                        <input type="hidden" id="videoId">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="videoTitle" class="block text-sm font-medium text-gray-700">视频标题 <span class="text-red-500">*</span></label>
+                                <input type="text" id="videoTitle" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required="">
+                            </div>
+                            
+                            <div>
+                                <label for="videoType" class="block text-sm font-medium text-gray-700">视频类型 <span class="text-red-500">*</span></label>
+                                <select id="videoType" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required="">
+                                    <option value="video">常规视频</option>
+                                    <option value="shorts">短视频</option>
+                                    <option value="live">直播</option>
+                                    <option value="premiere">首映</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label for="videoStatus" class="block text-sm font-medium text-gray-700">视频状态 <span class="text-red-500">*</span></label>
+                                <select id="videoStatus" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required="">
+                                    <option value="unlisted">未发布(Unlisted)</option>
+                                    <option value="public">已发布(Public)</option>
+                                    <option value="archived">已归档</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="plannedDate" class="block text-sm font-medium text-gray-700">计划发布日期</label>
+                                <input type="date" id="plannedDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            </div>
+                            
+                            <div>
+                                <label for="actualDate" class="block text-sm font-medium text-gray-700">实际发布日期</label>
+                                <input type="date" id="actualDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="youtubeLink" class="block text-sm font-medium text-gray-700">YouTube链接 <span class="text-red-500">*</span></label>
+                            <input type="url" id="youtubeLink" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="https://www.youtube.com/watch?v=..." required="">
+                            <p class="mt-1 text-sm text-gray-500">输入YouTube视频链接，系统将自动提取视频ID</p>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">视频ID <span class="text-gray-500">(自动提取)</span></label>
+                            <div class="mt-1 flex items-center">
+                                <span id="extractedVideoId" class="block px-3 py-2 rounded-md border border-gray-300 bg-gray-50 w-full text-gray-700"></span>
+                                <span id="idLoader" class="ml-2 loader hidden"></span>
+                            </div>
+                        </div>
+                        
+                        <hr class="my-6 border-gray-300">
+                        
+                        <h4 class="text-lg font-semibold text-indigo-600 mb-4">UTM参数设置</h4>
+                        
+                        <div>
+                            <label for="targetUrl" class="block text-sm font-medium text-gray-700">目标网站URL <span class="text-red-500">*</span></label>
+                            <input type="url" id="targetUrl" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="https://www.example.com/" required="">
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label for="utmSource" class="block text-sm font-medium text-gray-700">utm_source <span class="text-red-500">*</span></label>
+                                <select id="utmSource" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required="">
+                                    <option value="youtube">youtube</option>
+                                    <option value="facebook">facebook</option>
+                                    <option value="instagram">instagram</option>
+                                    <option value="twitter">twitter</option>
+                                    <option value="tiktok">tiktok</option>
+                                    <option value="email">email</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="utmMedium" class="block text-sm font-medium text-gray-700">utm_medium <span class="text-red-500">*</span></label>
+                                <select id="utmMedium" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required="">
+                                    <option value="video">video</option>
+                                    <option value="shorts">shorts</option>
+                                    <option value="live">live</option>
+                                    <option value="premiere">premiere</option>
+                                    <option value="social">social</option>
+                                    <option value="cpc">cpc</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="utmCampaign" class="block text-sm font-medium text-gray-700">utm_campaign <span class="text-red-500">*</span></label>
+                                <input type="text" id="utmCampaign" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="feature_name" required="">
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="utmContent" class="block text-sm font-medium text-gray-700">utm_content <span class="text-red-500">*</span></label>
+                                <select id="utmContent" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required="">
+                                    <option value="description_link">description_link</option>
+                                    <option value="pinned_comment">pinned_comment</option>
+                                    <option value="video_card">video_card</option>
+                                    <option value="end_screen">end_screen</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="utmTerm" class="block text-sm font-medium text-gray-700">utm_term</label>
+                                <div class="mt-1 flex items-center">
+                                    <input type="text" id="utmTerm" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="自动使用视频ID">
+                                    <span class="ml-2 tooltip">
+                                        <i class="fas fa-info-circle text-indigo-500"></i>
+                                        <span class="tooltiptext">留空将自动使用视频ID作为utm_term值</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">生成的UTM链接 <span class="text-gray-500">(自动生成)</span></label>
+                            <div class="mt-1 flex rounded-md shadow-sm">
+                                <input type="text" id="generatedUtmLink" class="block w-full rounded-md border-gray-300 bg-gray-50" readonly="">
+                                <button type="button" id="copyLinkBtn" class="ml-2 inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <i class="fas fa-copy mr-1"></i> 复制
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="notes" class="block text-sm font-medium text-gray-700">备注</label>
+                            <textarea id="notes" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-md mt-2">
+                            <h5 class="text-sm font-medium text-gray-700 mb-2">数据分析值 (可选)</h5>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label for="viewCount" class="block text-sm font-medium text-gray-700">观看量</label>
+                                    <input type="number" id="viewCount" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" min="0">
+                                </div>
+                                <div>
+                                    <label for="visitCount" class="block text-sm font-medium text-gray-700">网站访问量</label>
+                                    <input type="number" id="visitCount" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" min="0">
+                                </div>
+                                <div>
+                                    <label for="conversionCount" class="block text-sm font-medium text-gray-700">转化数量</label>
+                                    <input type="number" id="conversionCount" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" min="0">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end space-x-3 mt-6">
+                            <button type="button" id="cancelBtn" class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                取消
+                            </button>
+                            <button type="submit" id="saveBtn" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                保存
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- 确认删除模态框 -->
+        <div id="deleteModal" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center hidden z-50">
+            <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">确认删除</h3>
+                    <p class="text-gray-700 mb-6">您确定要删除这个视频记录吗？此操作无法撤销。</p>
+                    
+                    <div class="flex justify-end space-x-3">
+                        <button id="cancelDeleteBtn" class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            取消
+                        </button>
+                        <button id="confirmDeleteBtn" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                            删除
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 通知提示 -->
+        <div id="notification" class="fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg hidden z-50">
+            <div class="flex items-center">
+                <i id="notificationIcon" class="fas fa-check-circle mr-2"></i>
+                <span id="notificationText"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        let videos = [];
+        const LOCAL_STORAGE_KEY = 'ytUTMTrackerData';
+        let currentVideoIdToDelete = null;
+        let ctrChart = null;
+        let conversionChart = null;
+        let performanceChart = null;
+
+        // DOM元素初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化数据
+            loadData();
+            
+            // 初始化标签页切换
+            initTabs();
+            
+            // 初始化事件监听
+            initEventListeners();
+            
+            // 初始化图表
+            initCharts();
+            
+            // 渲染视频列表
+            renderVideoTable();
+            
+            // 渲染分析表格
+            renderAnalysisTable();
+        });
+
+        // 加载本地存储数据
+        function loadData() {
+            const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+            if (savedData) {
+                videos = JSON.parse(savedData);
+            }
+        }
+
+        // 保存数据到本地存储
+        function saveData() {
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(videos));
+        }
+
+        // 初始化标签页切换
+        function initTabs() {
+            const tabLinks = document.querySelectorAll('.tab-link');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 移除所有激活状态
+                    tabLinks.forEach(l => l.classList.remove('active', 'text-indigo-600', 'border-indigo-600'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // 添加当前激活状态
+                    this.classList.add('active', 'text-indigo-600', 'border-indigo-600');
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                    
+                    // 如果切换到数据分析标签，更新图表
+                    if (tabId === 'analysis') {
+                        updateCharts();
+                    }
+                });
+            });
+        }
+
+        // 初始化事件监听
+        function initEventListeners() {
+            // 开始追踪按钮
+            document.getElementById('startTrackingBtn').addEventListener('click', function() {
+                document.querySelector('.tab-link[data-tab="tracking"]').click();
+            });
+            
+            // 添加视频按钮
+            document.getElementById('addVideoBtn').addEventListener('click', function() {
+                openVideoModal();
+            });
+            
+            // 关闭模态框按钮
+            document.getElementById('closeModalBtn').addEventListener('click', closeVideoModal);
+            document.getElementById('cancelBtn').addEventListener('click', closeVideoModal);
+            
+            // 视频表单提交
+            document.getElementById('videoForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveVideoForm();
+            });
+            
+            // 复制链接按钮
+            document.getElementById('copyLinkBtn').addEventListener('click', function() {
+                const linkInput = document.getElementById('generatedUtmLink');
+                linkInput.select();
+                document.execCommand('copy');
+                showNotification('链接已复制到剪贴板', 'success');
+            });
+            
+            // 导出数据按钮
+            document.getElementById('exportBtn').addEventListener('click', exportData);
+            
+            // 导入数据按钮和文件输入
+            document.getElementById('importBtn').addEventListener('click', function() {
+                document.getElementById('importFile').click();
+            });
+            
+            document.getElementById('importFile').addEventListener('change', importData);
+            
+            // 确认删除按钮
+            document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+                if (currentVideoIdToDelete !== null) {
+                    deleteVideo(currentVideoIdToDelete);
+                    closeDeleteModal();
+                    currentVideoIdToDelete = null;
+                }
+            });
+            
+            // 取消删除按钮
+            document.getElementById('cancelDeleteBtn').addEventListener('click', closeDeleteModal);
+            
+            // YouTube链接输入事件 - 自动提取视频ID
+            document.getElementById('youtubeLink').addEventListener('input', extractVideoId);
+            
+            // 实时生成UTM链接
+            const utmFormInputs = ['targetUrl', 'utmSource', 'utmMedium', 'utmCampaign', 'utmContent', 'utmTerm', 'youtubeLink'];
+            utmFormInputs.forEach(id => {
+                document.getElementById(id).addEventListener('input', generateUtmLink);
+            });
+
+            // 视频状态变更时更新表单
+            document.getElementById('videoStatus').addEventListener('change', updateFormBasedOnStatus);
+        }
+
+        // 自动提取YouTube视频ID
+        function extractVideoId() {
+            const urlInput = document.getElementById('youtubeLink');
+            const idDisplay = document.getElementById('extractedVideoId');
+            const loader = document.getElementById('idLoader');
+            
+            if (urlInput.value) {
+                loader.classList.remove('hidden');
+                
+                // 模拟异步提取过程
+                setTimeout(() => {
+                    const videoId = extractYouTubeId(urlInput.value);
+                    idDisplay.textContent = videoId || '无法提取视频ID';
+                    loader.classList.add('hidden');
+                    
+                    // 如果utm_term为空，自动填充视频ID
+                    const utmTermInput = document.getElementById('utmTerm');
+                    if (!utmTermInput.value && videoId) {
+                        utmTermInput.value = videoId;
+                    }
+                    
+                    // 重新生成UTM链接
+                    generateUtmLink();
+                }, 500);
+            } else {
+                idDisplay.textContent = '';
+            }
+        }
+
+        // 从YouTube URL中提取视频ID
+        function extractYouTubeId(url) {
+            if (!url) return null;
+            
+            // 处理常规YouTube链接
+            let match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+            if (match && match[1]) {
+                return match[1];
+            }
+            
+            // 处理YouTube Shorts链接
+            match = url.match(/(?:youtube\.com\/shorts\/)([^"&?\/\s]{11})/);
+            if (match && match[1]) {
+                return match[1];
+            }
+            
+            return null;
+        }
+
+        // 生成UTM链接
+        function generateUtmLink() {
+            const targetUrl = document.getElementById('targetUrl').value;
+            if (!targetUrl) return;
+            
+            const source = document.getElementById('utmSource').value;
+            const medium = document.getElementById('utmMedium').value;
+            const campaign = document.getElementById('utmCampaign').value;
+            let term = document.getElementById('utmTerm').value;
+            const content = document.getElementById('utmContent').value;
+            
+            // 如果utm_term为空，使用提取的视频ID
+            if (!term) {
+                const extractedId = document.getElementById('extractedVideoId').textContent;
+                if (extractedId && extractedId !== '无法提取视频ID') {
+                    term = extractedId;
+                }
+            }
+            
+            // 构建UTM链接
+            let utmLink = targetUrl;
+            if (targetUrl.includes('?')) {
+                utmLink += '&';
+            } else {
+                utmLink += '?';
+            }
+            
+            utmLink += `utm_source=${encodeURIComponent(source)}`;
+            utmLink += `&utm_medium=${encodeURIComponent(medium)}`;
+            utmLink += `&utm_campaign=${encodeURIComponent(campaign)}`;
+            
+            if (term) {
+                utmLink += `&utm_term=${encodeURIComponent(term)}`;
+            }
+            
+            utmLink += `&utm_content=${encodeURIComponent(content)}`;
+            
+            document.getElementById('generatedUtmLink').value = utmLink;
+        }
+
+        // 根据状态更新表单
+        function updateFormBasedOnStatus() {
+            const status = document.getElementById('videoStatus').value;
+            const actualDateInput = document.getElementById('actualDate');
+            
+            if (status === 'public') {
+                // 如果状态为已发布，则今天日期作为实际发布日期
+                if (!actualDateInput.value) {
+                    const today = new Date().toISOString().split('T')[0];
+                    actualDateInput.value = today;
+                }
+            }
+        }
+
+        // 打开视频模态框（新增或编辑）
+        function openVideoModal(videoId = null) {
+            const modal = document.getElementById('videoModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const form = document.getElementById('videoForm');
+            
+            // 重置表单
+            form.reset();
+            document.getElementById('extractedVideoId').textContent = '';
+            document.getElementById('generatedUtmLink').value = '';
+            
+            if (videoId) {
+                // 编辑模式
+                modalTitle.textContent = '编辑视频';
+                const video = videos.find(v => v.id === videoId);
+                if (video) {
+                    document.getElementById('videoId').value = video.id;
+                    document.getElementById('videoTitle').value = video.title;
+                    document.getElementById('videoType').value = video.type;
+                    document.getElementById('videoStatus').value = video.status;
+                    document.getElementById('plannedDate').value = video.plannedDate || '';
+                    document.getElementById('actualDate').value = video.actualDate || '';
+                    document.getElementById('youtubeLink').value = video.youtubeLink;
+                    document.getElementById('targetUrl').value = video.targetUrl;
+                    document.getElementById('utmSource').value = video.utmSource;
+                    document.getElementById('utmMedium').value = video.utmMedium;
+                    document.getElementById('utmCampaign').value = video.utmCampaign;
+                    document.getElementById('utmContent').value = video.utmContent;
+                    document.getElementById('utmTerm').value = video.utmTerm;
+                    document.getElementById('notes').value = video.notes || '';
+                    document.getElementById('viewCount').value = video.viewCount || '';
+                    document.getElementById('visitCount').value = video.visitCount || '';
+                    document.getElementById('conversionCount').value = video.conversionCount || '';
+                    
+                    // 提取并显示视频ID
+                    setTimeout(() => {
+                        extractVideoId();
+                    }, 100);
+                }
+            } else {
+                // 新增模式
+                modalTitle.textContent = '添加新视频';
+                document.getElementById('videoId').value = '';
+                
+                // 设置默认值
+                document.getElementById('utmSource').value = 'youtube';
+                document.getElementById('utmContent').value = 'description_link';
+                
+                // 自动填充当前日期为计划发布日期
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('plannedDate').value = today;
+            }
+            
+            modal.classList.remove('hidden');
+        }
+
+        // 关闭视频模态框
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            modal.classList.add('hidden');
+        }
+
+        // 保存视频表单
+        function saveVideoForm() {
+            const form = document.getElementById('videoForm');
+            const videoId = document.getElementById('videoId').value;
+            const extractedVideoId = document.getElementById('extractedVideoId').textContent;
+            
+            // 收集表单数据
+            const videoData = {
+                title: document.getElementById('videoTitle').value,
+                type: document.getElementById('videoType').value,
+                status: document.getElementById('videoStatus').value,
+                plannedDate: document.getElementById('plannedDate').value,
+                actualDate: document.getElementById('actualDate').value,
+                youtubeLink: document.getElementById('youtubeLink').value,
+                youtubeVideoId: extractedVideoId !== '无法提取视频ID' ? extractedVideoId : '',
+                targetUrl: document.getElementById('targetUrl').value,
+                utmSource: document.getElementById('utmSource').value,
+                utmMedium: document.getElementById('utmMedium').value,
+                utmCampaign: document.getElementById('utmCampaign').value,
+                utmContent: document.getElementById('utmContent').value,
+                utmTerm: document.getElementById('utmTerm').value || extractedVideoId,
+                utmLink: document.getElementById('generatedUtmLink').value,
+                notes: document.getElementById('notes').value,
+                viewCount: parseInt(document.getElementById('viewCount').value) || 0,
+                visitCount: parseInt(document.getElementById('visitCount').value) || 0,
+                conversionCount: parseInt(document.getElementById('conversionCount').value) || 0
+            };
+            
+            if (videoId) {
+                // 编辑现有视频
+                const index = videos.findIndex(v => v.id === videoId);
+                if (index !== -1) {
+                    videos[index] = { ...videos[index], ...videoData };
+                    showNotification('视频已更新', 'success');
+                }
+            } else {
+                // 添加新视频
+                videoData.id = generateUniqueId();
+                videoData.createdAt = new Date().toISOString();
+                videos.push(videoData);
+                showNotification('视频已添加', 'success');
+            }
+            
+            // 保存数据
+            saveData();
+            
+            // 更新UI
+            renderVideoTable();
+            renderAnalysisTable();
+            updateCharts();
+            
+            // 关闭模态框
+            closeVideoModal();
+        }
+
+        // 删除视频
+        function deleteVideo(videoId) {
+            const index = videos.findIndex(v => v.id === videoId);
+            if (index !== -1) {
+                videos.splice(index, 1);
+                saveData();
+                renderVideoTable();
+                renderAnalysisTable();
+                updateCharts();
+                showNotification('视频已删除', 'success');
+            }
+        }
+
+        // 打开删除确认模态框
+        function openDeleteModal(videoId) {
+            currentVideoIdToDelete = videoId;
+            document.getElementById('deleteModal').classList.remove('hidden');
+        }
+
+        // 关闭删除确认模态框
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.add('hidden');
+            currentVideoIdToDelete = null;
+        }
+
+        // 渲染视频表格
+        function renderVideoTable() {
+            const table = document.getElementById('videoTable');
+            
+            if (videos.length === 0) {
+                table.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                            暂无视频记录。点击"添加新视频"开始追踪。
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            table.innerHTML = '';
+            
+            // 按创建时间排序，最新的在前面
+            const sortedVideos = [...videos].sort((a, b) => {
+                return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+            });
+            
+            sortedVideos.forEach(video => {
+                const tr = document.createElement('tr');
+                
+                // 确定状态样式
+                let statusClass = '';
+                let statusLabel = '';
+                
+                switch(video.status) {
+                    case 'unlisted':
+                        statusClass = 'status-unlisted';
+                        statusLabel = '未发布(Unlisted)';
+                        break;
+                    case 'public':
+                        statusClass = 'status-public';
+                        statusLabel = '已发布(Public)';
+                        break;
+                    case 'archived':
+                        statusClass = 'status-archived';
+                        statusLabel = '已归档';
+                        break;
+                }
+                
+                tr.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                            <div class="ml-4">
+                                <div class="text-sm font-medium text-gray-900">${video.title}</div>
+                                <div class="text-sm text-gray-500">类型: ${video.type === 'shorts' ? '短视频' : video.type === 'live' ? '直播' : video.type === 'premiere' ? '首映' : '常规视频'}</div>
+                                <div class="text-sm text-gray-500">
+                                    ${video.actualDate ? `发布于: ${formatDate(video.actualDate)}` : video.plannedDate ? `计划: ${formatDate(video.plannedDate)}` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusClass}">
+                            ${statusLabel}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <div class="flex flex-col">
+                            <a href="${video.youtubeLink}" target="_blank" class="text-indigo-600 hover:text-indigo-900 truncate max-w-xs">
+                                <i class="fab fa-youtube mr-1"></i> ${video.youtubeLink}
+                            </a>
+                            <span class="text-xs text-gray-500">ID: ${video.youtubeVideoId || '未提取'}</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <div class="flex flex-col">
+                            <a href="${video.utmLink}" target="_blank" class="text-indigo-600 hover:text-indigo-900 truncate max-w-xs">
+                                ${video.utmLink}
+                            </a>
+                            <div class="flex mt-1">
+                                <button class="copyBtn text-xs text-gray-600 hover:text-gray-900 mr-2" data-link="${video.utmLink}">
+                                    <i class="fas fa-copy"></i> 复制
+                                </button>
+                                <button class="qrBtn text-xs text-gray-600 hover:text-gray-900" data-link="${video.utmLink}">
+                                    <i class="fas fa-qrcode"></i> 二维码
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <button class="text-indigo-600 hover:text-indigo-900 mr-3 editBtn" data-id="${video.id}">
+                            <i class="fas fa-edit"></i> 编辑
+                        </button>
+                        <button class="text-red-600 hover:text-red-900 deleteBtn" data-id="${video.id}">
+                            <i class="fas fa-trash"></i> 删除
+                        </button>
+                    </td>
+                `;
+                
+                table.appendChild(tr);
+            });
+            
+            // 添加编辑和删除按钮事件
+            document.querySelectorAll('.editBtn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const videoId = this.getAttribute('data-id');
+                    openVideoModal(videoId);
+                });
+            });
+            
+            document.querySelectorAll('.deleteBtn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const videoId = this.getAttribute('data-id');
+                    openDeleteModal(videoId);
+                });
+            });
+            
+            // 添加复制按钮事件
+            document.querySelectorAll('.copyBtn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const link = this.getAttribute('data-link');
+                    navigator.clipboard.writeText(link).then(() => {
+                        showNotification('链接已复制到剪贴板', 'success');
+                    });
+                });
+            });
+            
+            // 添加二维码按钮事件
+            document.querySelectorAll('.qrBtn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const link = this.getAttribute('data-link');
+                    // 使用Google Charts API生成二维码
+                    const qrUrl = `https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=${encodeURIComponent(link)}`;
+                    window.open(qrUrl, '_blank');
+                });
+            });
+        }
+
+        // 渲染分析表格
+        function renderAnalysisTable() {
+            const table = document.getElementById('analysisTable');
+            
+            if (videos.length === 0) {
+                table.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="px-6 py-4 text-center text-gray-500">
+                            暂无数据记录。请先在"视频追踪"选项卡中添加视频。
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            table.innerHTML = '';
+            
+            // 按发布日期排序，最新的在前面
+            const sortedVideos = [...videos].sort((a, b) => {
+                const dateA = a.actualDate ? new Date(a.actualDate) : a.plannedDate ? new Date(a.plannedDate) : new Date(0);
+                const dateB = b.actualDate ? new Date(b.actualDate) : b.plannedDate ? new Date(b.plannedDate) : new Date(0);
+                return dateB - dateA;
+            });
+            
+            sortedVideos.forEach(video => {
+                const tr = document.createElement('tr');
+                
+                // 计算指标
+                const ctr = video.viewCount > 0 ? (video.visitCount / video.viewCount * 100).toFixed(2) : '0.00';
+                const conversionRate = video.visitCount > 0 ? (video.conversionCount / video.visitCount * 100).toFixed(2) : '0.00';
+                
+                // 确定状态样式
+                let statusClass = '';
+                let statusLabel = '';
+                
+                switch(video.status) {
+                    case 'unlisted':
+                        statusClass = 'status-unlisted';
+                        statusLabel = '未发布(Unlisted)';
+                        break;
+                    case 'public':
+                        statusClass = 'status-public';
+                        statusLabel = '已发布(Public)';
+                        break;
+                    case 'archived':
+                        statusClass = 'status-archived';
+                        statusLabel = '已归档';
+                        break;
+                }
+                
+                tr.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                            <div class="ml-4">
+                                <div class="text-sm font-medium text-gray-900">${video.title}</div>
+                                <div class="text-sm text-gray-500">
+                                    ${video.actualDate ? `发布于: ${formatDate(video.actualDate)}` : video.plannedDate ? `计划: ${formatDate(video.plannedDate)}` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusClass}">
+                            ${statusLabel}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <input type="number" min="0" class="viewCountInput border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 w-20" 
+                               value="${video.viewCount || 0}" data-id="${video.id}">
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <input type="number" min="0" class="visitCountInput border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 w-20" 
+                               value="${video.visitCount || 0}" data-id="${video.id}">
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <input type="number" min="0" class="conversionCountInput border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 w-20" 
+                               value="${video.conversionCount || 0}" data-id="${video.id}">
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 ctrCell" data-id="${video.id}">
+                        ${ctr}%
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 conversionRateCell" data-id="${video.id}">
+                        ${conversionRate}%
+                    </td>
+                `;
+                
+                table.appendChild(tr);
+            });
+            
+            // 添加输入框事件
+            document.querySelectorAll('.viewCountInput, .visitCountInput, .conversionCountInput').forEach(input => {
+                input.addEventListener('change', function() {
+                    const videoId = this.getAttribute('data-id');
+                    const value = parseInt(this.value) || 0;
+                    const fieldClass = this.classList[0];
+                    
+                    // 更新数据
+                    const index = videos.findIndex(v => v.id === videoId);
+                    if (index !== -1) {
+                        if (fieldClass === 'viewCountInput') {
+                            videos[index].viewCount = value;
+                        } else if (fieldClass === 'visitCountInput') {
+                            videos[index].visitCount = value;
+                        } else if (fieldClass === 'conversionCountInput') {
+                            videos[index].conversionCount = value;
+                        }
+                        
+                        // 重新计算指标
+                        const video = videos[index];
+                        const ctr = video.viewCount > 0 ? (video.visitCount / video.viewCount * 100).toFixed(2) : '0.00';
+                        const conversionRate = video.visitCount > 0 ? (video.conversionCount / video.visitCount * 100).toFixed(2) : '0.00';
+                        
+                        // 更新显示
+                        document.querySelector(`.ctrCell[data-id="${videoId}"]`).textContent = `${ctr}%`;
+                        document.querySelector(`.conversionRateCell[data-id="${videoId}"]`).textContent = `${conversionRate}%`;
+                        
+                        // 保存数据
+                        saveData();
+                        
+                        // 更新图表
+                        updateCharts();
+                    }
+                });
+            });
+        }
+
+        // 初始化图表
+        function initCharts() {
+            // 创建点击率图表
+            const ctrCtx = document.getElementById('ctrChart').getContext('2d');
+            ctrChart = new Chart(ctrCtx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: '点击率(%)',
+                        data: [],
+                        backgroundColor: 'rgba(79, 70, 229, 0.6)',
+                        borderColor: 'rgba(79, 70, 229, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '点击率 (%)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 创建转化率图表
+            const conversionCtx = document.getElementById('conversionChart').getContext('2d');
+            conversionChart = new Chart(conversionCtx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: '转化率(%)',
+                        data: [],
+                        backgroundColor: 'rgba(16, 185, 129, 0.6)',
+                        borderColor: 'rgba(16, 185, 129, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '转化率 (%)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 创建性能总览图表
+            const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+            performanceChart = new Chart(performanceCtx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: '观看量',
+                            data: [],
+                            backgroundColor: 'rgba(244, 63, 94, 0.6)',
+                            borderColor: 'rgba(244, 63, 94, 1)',
+                            borderWidth: 1,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: '网站访问量',
+                            data: [],
+                            backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                            borderColor: 'rgba(59, 130, 246, 1)',
+                            borderWidth: 1,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: '转化数量',
+                            data: [],
+                            backgroundColor: 'rgba(16, 185, 129, 0.6)',
+                            borderColor: 'rgba(16, 185, 129, 1)',
+                            borderWidth: 1,
+                            yAxisID: 'y'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '数量'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 更新图表数据
+        function updateCharts() {
+            if (videos.length === 0) return;
+            
+            // 按发布日期排序
+            const sortedVideos = [...videos].sort((a, b) => {
+                const dateA = a.actualDate ? new Date(a.actualDate) : a.plannedDate ? new Date(a.plannedDate) : new Date(0);
+                const dateB = b.actualDate ? new Date(b.actualDate) : b.plannedDate ? new Date(b.plannedDate) : new Date(0);
+                return dateA - dateB;
+            });
+            
+            // 筛选有数据的视频
+            const dataVideos = sortedVideos.filter(v => v.viewCount > 0 || v.visitCount > 0);
+            
+            if (dataVideos.length === 0) {
+                // 如果没有数据，显示提示信息
+                resetCharts();
+                return;
+            }
+            
+            // 准备图表数据
+            const labels = dataVideos.map(v => truncateText(v.title, 15));
+            const ctrData = dataVideos.map(v => v.viewCount > 0 ? (v.visitCount / v.viewCount * 100).toFixed(2) : 0);
+            const conversionRateData = dataVideos.map(v => v.visitCount > 0 ? (v.conversionCount / v.visitCount * 100).toFixed(2) : 0);
+            const viewCountData = dataVideos.map(v => v.viewCount || 0);
+            const visitCountData = dataVideos.map(v => v.visitCount || 0);
+            const conversionCountData = dataVideos.map(v => v.conversionCount || 0);
+            
+            // 更新点击率图表
+            ctrChart.data.labels = labels;
+            ctrChart.data.datasets[0].data = ctrData;
+            ctrChart.update();
+            
+            // 更新转化率图表
+            conversionChart.data.labels = labels;
+            conversionChart.data.datasets[0].data = conversionRateData;
+            conversionChart.update();
+            
+            // 更新性能总览图表
+            performanceChart.data.labels = labels;
+            performanceChart.data.datasets[0].data = viewCountData;
+            performanceChart.data.datasets[1].data = visitCountData;
+            performanceChart.data.datasets[2].data = conversionCountData;
+            performanceChart.update();
+        }
+
+        // 重置图表
+        function resetCharts() {
+            const emptyData = {
+                labels: ['暂无数据'],
+                datasets: [{
+                    data: [0],
+                    backgroundColor: 'rgba(209, 213, 219, 0.6)',
+                    borderColor: 'rgba(209, 213, 219, 1)',
+                    borderWidth: 1
+                }]
+            };
+            
+            ctrChart.data = JSON.parse(JSON.stringify(emptyData));
+            ctrChart.data.datasets[0].label = '点击率(%)';
+            ctrChart.update();
+            
+            conversionChart.data = JSON.parse(JSON.stringify(emptyData));
+            conversionChart.data.datasets[0].label = '转化率(%)';
+            conversionChart.update();
+            
+            performanceChart.data.labels = ['暂无数据'];
+            performanceChart.data.datasets.forEach(dataset => {
+                dataset.data = [0];
+            });
+            performanceChart.update();
+        }
+
+        // 导出数据
+        function exportData() {
+            const data = JSON.stringify(videos, null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            
+            a.href = url;
+            a.download = `youtube_utm_tracker_export_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            
+            // 清理
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 0);
+            
+            showNotification('数据导出成功', 'success');
+        }
+
+        // 导入数据
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    
+                    // 验证数据格式
+                    if (!Array.isArray(importedData)) {
+                        throw new Error('导入的数据格式不正确');
+                    }
+                    
+                    // 导入数据
+                    videos = importedData;
+                    saveData();
+                    
+                    // 更新UI
+                    renderVideoTable();
+                    renderAnalysisTable();
+                    updateCharts();
+                    
+                    showNotification('数据导入成功', 'success');
+                } catch (error) {
+                    showNotification('数据导入失败: ' + error.message, 'error');
+                }
+            };
+            
+            reader.readAsText(file);
+            
+            // 重置文件输入
+            event.target.value = '';
+        }
+
+        // 显示通知
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            const notificationIcon = document.getElementById('notificationIcon');
+            
+            notificationText.textContent = message;
+            
+            // 设置通知类型样式
+            notification.className = 'fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50';
+            
+            if (type === 'success') {
+                notification.classList.add('bg-green-500', 'text-white');
+                notificationIcon.className = 'fas fa-check-circle mr-2';
+            } else if (type === 'error') {
+                notification.classList.add('bg-red-500', 'text-white');
+                notificationIcon.className = 'fas fa-exclamation-circle mr-2';
+            } else if (type === 'warning') {
+                notification.classList.add('bg-yellow-500', 'text-white');
+                notificationIcon.className = 'fas fa-exclamation-triangle mr-2';
+            } else if (type === 'info') {
+                notification.classList.add('bg-blue-500', 'text-white');
+                notificationIcon.className = 'fas fa-info-circle mr-2';
+            }
+            
+            // 显示通知
+            notification.classList.remove('hidden');
+            
+            // 3秒后隐藏通知
+            setTimeout(() => {
+                notification.classList.add('hidden');
+            }, 3000);
+        }
+
+        // 生成唯一ID
+        function generateUniqueId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+        }
+
+        // 格式化日期
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            
+            const date = new Date(dateString);
+            return date.toLocaleDateString('zh-CN');
+        }
+
+        // 截断文本
+        function truncateText(text, maxLength) {
+            if (!text) return '';
+            return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+        }
+    </script>
+
+
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDpZ7%2F3hokv98aMY5bKT3JmcvdcgJds2gfXcgacrAnPxBdvkt3fBoR30w3jHmPDIBcC8ae1IWH3o4O51GhIDwDia%2Fx0lBzA7cYOgZvCpP4BQ%2FSJm3E92LDr%2FYfOA%2BsQAyw%2Fv2xEB1TWHbpiMqwRYnFZDkrpk6MMelyc9vAE%2BjQHVXCWEy0BKJ%2BMzInHOta9Xdiebu7aB9RuQLfOs97fOPoCE7skXIcTCkNABHp0LtmpkHB%2BlXj1R7z6TIbkQNGjaPNj8quFYwt4CDeJzjuyG1CXeliWRJWuooNW1IMnUsOc1AXoimvPWuLXRDxyi2NGWir%2FRisHCRvZdZTBCtUV8Sr8KsEd1fH3xKElO99pSgrFcEXdkovxIyBXfoyjcMAoINad7%2BPailBRyaGDol%2BXj7fxFhPscwJB5LPHlSA%2BdhsLKl6HTgxnPhH73CGOr2yKmcQM96Sz6%2BCsTJyg1Fq4h%2BBvwazu4cc8phXs3bV7DD2W1Smcmeq6%2BYx4606nfNvKJvYI80T956YnzTJfs6joRLXz1RLWr8Ix8U7g2bvtDJY0LSB8fCK0X4qOsZhbcggFhRKMq6tAYD5avQcDZXXJqgDsGjmNeeJca4Aabz3QSHBLs8";
+        window.__genspark_locale = "zh-CN";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDpZ7/3hokv98aMY5bKT3JmcvdcgJds2gfXcgacrAnPxBdvkt3fBoR30w3jHmPDIBcC8ae1IWH3o4O51GhIDwDia/x0lBzA7cYOgZvCpP4BQ/SJm3E92LDr/YfOA+sQAyw/v2xEB1TWHbpiMqwRYnFZDkrpk6MMelyc9vAE+jQHVXCWEy0BKJ+MzInHOta9Xdiebu7aB9RuQLfOs97fOPoCE7skXIcTCkNABHp0LtmpkHB+lXj1R7z6TIbkQNGjaPNj8quFYwt4CDeJzjuyG1CXeliWRJWuooNW1IMnUsOc1AXoimvPWuLXRDxyi2NGWir/RisHCRvZdZTBCtUV8Sr8KsEd1fH3xKElO99pSgrFcEXdkovxIyBXfoyjcMAoINad7+PailBRyaGDol+Xj7fxFhPscwJB5LPHlSA+dhsLKl6HTgxnPhH73CGOr2yKmcQM96Sz6+CsTJyg1Fq4h+Bvwazu4cc8phXs3bV7DD2W1Smcmeq6+Yx4606nfNvKJvYI80T956YnzTJfs6joRLXz1RLWr8Ix8U7g2bvtDJY0LSB8fCK0X4qOsZhbcggFhRKMq6tAYD5avQcDZXXJqgDsGjmNeeJca4Aabz3QSHBLs8";
+    </script>
+    </body><plasmo-csui id="aitdk-csui"><template shadowrootmode="open"><style>*,:before,:after{box-sizing:border-box;border:0 solid #e5e7eb}:before,:after{--tw-content:""}html{-webkit-text-size-adjust:100%;tab-size:4;font-feature-settings:normal;font-variation-settings:normal;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;line-height:1.5}body{line-height:inherit;margin:0}hr{color:inherit;border-top-width:1px;height:0}abbr:where([title]){text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,samp,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-size:1em}small{font-size:80%}sub,sup{vertical-align:baseline;font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-feature-settings:inherit;font-variation-settings:inherit;font-family:inherit;font-size:100%;font-weight:inherit;line-height:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,[type=button],[type=reset],[type=submit]{-webkit-appearance:button;background-color:#0000;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button{height:auto}::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dl,dd,h1,h2,h3,h4,h5,h6,hr,figure,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}ol,ul,menu{margin:0;padding:0;list-style:none}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}button,[role=button]{cursor:pointer}:disabled{cursor:default}img,svg,video,canvas,audio,iframe,embed,object{vertical-align:middle;display:block}img,video{max-width:100%;height:auto}[hidden]{display:none}:host,:root{--background:0 0% 100%;--foreground:224 71.4% 4.1%;--card:0 0% 100%;--card-foreground:224 71.4% 4.1%;--popover:0 0% 100%;--popover-foreground:224 71.4% 4.1%;--primary:262.1 83.3% 57.8%;--primary-foreground:210 20% 98%;--secondary:220 14.3% 95.9%;--secondary-foreground:220.9 39.3% 11%;--muted:220 14.3% 95.9%;--muted-foreground:220 8.9% 46.1%;--accent:220 14.3% 95.9%;--accent-foreground:220.9 39.3% 11%;--destructive:0 84.2% 60.2%;--destructive-foreground:210 20% 98%;--border:220 13% 91%;--input:220 13% 91%;--ring:262.1 83.3% 57.8%;--radius:4.2px;z-index:2147483647}.dark{--background:224 71.4% 4.1%;--foreground:210 20% 98%;--card:224 71.4% 4.1%;--card-foreground:210 20% 98%;--popover:224 71.4% 4.1%;--popover-foreground:210 20% 98%;--primary:263.4 70% 50.4%;--primary-foreground:210 20% 98%;--secondary:215 27.9% 16.9%;--secondary-foreground:210 20% 98%;--muted:215 27.9% 16.9%;--muted-foreground:217.9 10.6% 64.9%;--accent:215 27.9% 16.9%;--accent-foreground:210 20% 98%;--destructive:0 62.8% 30.6%;--destructive-foreground:210 20% 98%;--border:215 27.9% 16.9%;--input:215 27.9% 16.9%;--ring:263.4 70% 50.4%}*{border-color:hsl(var(--border))}html{font-size:14px}body{background-color:hsl(var(--background));color:hsl(var(--foreground));font-feature-settings:"rlig" 1,"calt" 1;font-size:14px}*,:before,:after,::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:#3b82f680;--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }.container{width:100%;margin-left:auto;margin-right:auto;padding-left:28px;padding-right:28px}@media (width>=1400px){.container{max-width:1400px}}.visible{visibility:visible}.invisible{visibility:hidden}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.bottom-0{bottom:0}.left-1\/2{left:50%}.right-0{right:0}.right-2{right:7px}.top-0{top:0}.top-1\/2{top:50%}.top-2{top:7px}.-z-\[1\]{z-index:-1}.z-\[1\]{z-index:1}.z-\[2147483647\]{z-index:2147483647}.mx-auto{margin-left:auto;margin-right:auto}.-ml-\[13px\]{margin-left:-13px}.-mt-\[13px\]{margin-top:-13px}.mt-3{margin-top:10.5px}.mt-5{margin-top:17.5px}.block{display:block}.flex{display:flex}.hidden{display:none}.h-full{height:100%}.w-\[420px\]{width:420px}.w-\[520px\]{width:520px}.w-full{width:100%}@keyframes spin{to{transform:rotate(360deg)}}.animate-spin{animation:1s linear infinite spin}.cursor-pointer{cursor:pointer}.items-center{align-items:center}.justify-center{justify-content:center}.gap-x-2{column-gap:7px}.rounded{border-radius:3.5px}.bg-\[\#635bff\]{--tw-bg-opacity:1;background-color:rgb(99 91 255/var(--tw-bg-opacity))}.bg-\[\#635bff\]\/10{background-color:#635bff1a}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity))}.p-1{padding:3.5px}.p-6{padding:21px}.px-4{padding-left:14px;padding-right:14px}.py-2{padding-top:7px;padding-bottom:7px}.py-2\.5{padding-top:8.75px;padding-bottom:8.75px}.text-\[14px\]{font-size:14px}.text-xl{font-size:17.5px;line-height:24.5px}.font-medium{font-weight:500}.leading-6{line-height:21px}.text-black{--tw-text-opacity:1;color:rgb(0 0 0/var(--tw-text-opacity))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175/var(--tw-text-opacity))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128/var(--tw-text-opacity))}.text-gray-800{--tw-text-opacity:1;color:rgb(31 41 55/var(--tw-text-opacity))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity))}.shadow-2xl{--tw-shadow:0 25px 50px -12px #00000040;--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.outline{outline-style:solid}.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-duration:.15s;transition-timing-function:cubic-bezier(.4,0,.2,1)}@keyframes enter{0%{opacity:var(--tw-enter-opacity,1);transform:translate3d(var(--tw-enter-translate-x,0),var(--tw-enter-translate-y,0),0)scale3d(var(--tw-enter-scale,1),var(--tw-enter-scale,1),var(--tw-enter-scale,1))rotate(var(--tw-enter-rotate,0))}}@keyframes exit{to{opacity:var(--tw-exit-opacity,1);transform:translate3d(var(--tw-exit-translate-x,0),var(--tw-exit-translate-y,0),0)scale3d(var(--tw-exit-scale,1),var(--tw-exit-scale,1),var(--tw-exit-scale,1))rotate(var(--tw-exit-rotate,0))}}.hover\:bg-\[\#635bff\]\/90:hover{background-color:#635bffe6}</style><div id="plasmo-shadow-container" style="z-index: 2147483647; position: relative;"><div id="plasmo-inline" class="plasmo-csui-container" style="display: flex; position: relative; top: 0px; left: 0px;"><div class="aitdk-extension shadow-2xl flex fixed w-[520px] top-0 right-0 bottom-0 bg-white hidden"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x absolute right-2 top-2 z-[1] p-1 cursor-pointer text-gray-500"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-loader-circle animate-spin text-gray-400 absolute top-1/2 left-1/2 -ml-[13px] -mt-[13px] -z-[1]"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg></div></div></div></template></plasmo-csui></html>
